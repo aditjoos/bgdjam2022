@@ -1,5 +1,7 @@
+import 'package:bgdjam/cinematic.dart';
 import 'package:bgdjam/game_page.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyMenu extends StatefulWidget {
   const MyMenu({super.key});
@@ -9,6 +11,23 @@ class MyMenu extends StatefulWidget {
 }
 
 class _MyMenuState extends State<MyMenu> {
+  bool checkLevel0() {
+    return (prefs.getInt('currentLevel') ?? 0) == 0;
+  }
+
+  late SharedPreferences prefs;
+
+  @override
+  void initState() {
+    _initSharedPreferences();
+
+    super.initState();
+  }
+
+  void _initSharedPreferences() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -44,8 +63,18 @@ class _MyMenuState extends State<MyMenu> {
                 children: [
                   MyMenuButton(
                     text: 'Mulai',
-                    onTap: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (_) => const MyGamePage())),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) {
+                            return checkLevel0()
+                                ? const MyCinematicPage()
+                                : const MyGamePage();
+                          },
+                        ),
+                      );
+                    },
                   ),
                   const SizedBox(height: 34),
                   MyMenuButton(

@@ -1,3 +1,4 @@
+import 'package:bgdjam/cinematic.dart';
 import 'package:bgdjam/scene.dart';
 import 'package:flame/components.dart';
 import 'package:flame/game.dart';
@@ -61,9 +62,7 @@ class MyGame extends FlameGame
       Navigator.pushReplacement(
         _context,
         MaterialPageRoute(
-          builder: (_) => const Scaffold(
-            body: Text('tttesttttt'),
-          ),
+          builder: (_) => const MyCinematicPage(),
         ),
       );
     });

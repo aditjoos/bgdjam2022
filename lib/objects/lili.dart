@@ -77,6 +77,10 @@ class Lili extends PositionComponent
       }
     }
 
+    if (event.isKeyPressed(LogicalKeyboardKey.keyQ)) {
+      gameRef.prefs.clear();
+    }
+
     return super.onKeyEvent(event, keysPressed);
   }
 
